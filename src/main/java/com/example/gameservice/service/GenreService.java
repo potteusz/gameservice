@@ -2,13 +2,14 @@ package com.example.gameservice.service;
 
 import com.example.gameservice.model.Genre;
 import com.example.gameservice.repository.GenreRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class GenreService {
 
-    private final GenreRepository genreRepository;
+    private GenreRepository genreRepository;
 
 
     public GenreService(GenreRepository genreRepository) {

@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public class GameService {
 
-    private final GameRepository gameRepository;
+    private GameRepository gameRepository;
 
     public GameService(GameRepository repository) {
         this.gameRepository = repository;

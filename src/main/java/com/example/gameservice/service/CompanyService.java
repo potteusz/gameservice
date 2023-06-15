@@ -2,13 +2,14 @@ package com.example.gameservice.service;
 
 import com.example.gameservice.model.Company;
 import com.example.gameservice.repository.CompanyRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class CompanyService {
 
-    private final CompanyRepository companyRepository;
+    private CompanyRepository companyRepository;
 
     public CompanyService(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
