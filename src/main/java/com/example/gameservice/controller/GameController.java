@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/games")
 public class GameController {
 
     private GameService gameService;
@@ -20,11 +21,14 @@ public class GameController {
 
     @PostMapping
     public ResponseEntity<Game> postGame(@RequestBody Game requestGame) {
-        Game savedGame = gameService.save(requestGame);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedGame);
+        Optional<Game> savedGame = gameService.addNewGame(requestGame);
+        if(savedGame.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedGame.get());
     }
 
-    @GetMapping("/games")
+    @GetMapping("/all")
     public List<Game> getAllGames() {
         return gameService.getAllGames();
     }
@@ -45,6 +49,14 @@ public class GameController {
             gameService.removeGameById(id);
             return ResponseEntity.noContent().build();
         }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Game> updateGame(@PathVariable Integer id, @RequestBody Game updatedGame) {
+        Optional<Game> updated = gameService.update(id, updatedGame);
+        if (updated.isPresent()) {
+            return ResponseEntity.ok(updatedGame);
+        } else return ResponseEntity.notFound().build();
     }
 
 

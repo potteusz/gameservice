@@ -2,12 +2,11 @@ package com.example.gameservice.model;
 
 import jakarta.persistence.*;
 
-import java.util.Objects;
 @Entity
 @Table
 public class Genre {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer genreId;
     private String genreName;
     private String firstGameInGenre;
