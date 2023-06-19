@@ -13,13 +13,6 @@ public class Game {
 //    private Genre genre;
 //    private Platform platform;
 
-//    public Game(Integer gameId, String title, String developer, Genre genre, Platform platform) {
-//        this.gameId = gameId;
-//        this.title = title;
-//        this.developer = developer;
-//        this.genre = genre;
-//        this.platform = platform;
-//    }
 
     public Game() {
     }

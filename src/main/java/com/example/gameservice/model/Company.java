@@ -8,17 +8,12 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer companyId;
     private String companyName;
-//    private Platform platform;
+    @OneToOne
+    @JoinColumn(name = "platform_id")
+    private Platform platform;
     private String headquarter;
     private String ceo;
 
-//    public Company(Integer companyId, String companyName, Platform platform, String headquarter, String ceo) {
-//        this.companyId = companyId;
-//        this.companyName = companyName;
-//        this.platform = platform;
-//        this.headquarter = headquarter;
-//        this.ceo = ceo;
-//    }
 
     public Company() {
     }
@@ -39,8 +34,6 @@ public class Company {
         this.companyName = companyName;
     }
 
-
-
     public String getHeadquarter() {
         return headquarter;
     }
@@ -57,5 +50,11 @@ public class Company {
         this.ceo = ceo;
     }
 
+    public Platform getPlatform() {
+        return platform;
+    }
 
+    public void setPlatform(Platform platform) {
+        this.platform = platform;
+    }
 }

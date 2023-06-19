@@ -13,13 +13,6 @@ public class Genre {
     private String creator;
 //    private Game gameGenre;
 
-//    public Genre(Integer genreId, String genreName, String firstGameInGenre, String creator, Game gameGenre) {
-//        this.genreId = genreId;
-//        this.genreName = genreName;
-//        this.firstGameInGenre = firstGameInGenre;
-//        this.creator = creator;
-//        this.gameGenre = gameGenre;
-//    }
 
     public Genre() {
     }

@@ -9,17 +9,11 @@ public class Platform {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer platformId;
     private String platformName;
-//    private Company company;
+    @OneToOne(mappedBy = "platform")
+    private Company company;
     private int generation;
     private String bestseller;
 
-//    public Platform(Integer platformId, String platformName, Company company, int generation, String bestseller) {
-//        this.platformId = platformId;
-//        this.platformName = platformName;
-//        this.company = company;
-//        this.generation = generation;
-//        this.bestseller = bestseller;
-//    }
 
     public Platform() {
     }
@@ -56,5 +50,11 @@ public class Platform {
         this.bestseller = bestseller;
     }
 
+    public Company getCompany() {
+        return company;
+    }
 
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 }
