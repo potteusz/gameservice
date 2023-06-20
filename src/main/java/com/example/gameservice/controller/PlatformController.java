@@ -33,27 +33,27 @@ public class PlatformController {
         return platformService.getAllPlatforms();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Platform> getPlatformById(@PathVariable int id) {
-        Optional<Platform> response = platformService.getPlatformById(id);
+    @GetMapping("/{platformId}")
+    public ResponseEntity<Platform> getPlatformById(@PathVariable Integer platformId) {
+        Optional<Platform> response = platformService.getPlatformById(platformId);
         return response
                 .map(platformResponse -> ResponseEntity.ok(platformResponse))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePlatformById(@PathVariable int id) {
-        if (platformService.getPlatformById(id).isEmpty()) {
+    @DeleteMapping("/{platformId}")
+    public ResponseEntity<Void> deletePlatformById(@PathVariable Integer platformId) {
+        if (platformService.getPlatformById(platformId).isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
-            platformService.removePlatformById(id);
+            platformService.removePlatformById(platformId);
             return ResponseEntity.noContent().build();
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Platform> updatePlatform(@PathVariable Integer id, @RequestBody Platform updatedPlatform) {
-        Optional<Platform> updated = platformService.update(id, updatedPlatform);
+    @PutMapping("/{platformId}")
+    public ResponseEntity<Platform> updatePlatform(@PathVariable Integer platformId, @RequestBody Platform updatedPlatform) {
+        Optional<Platform> updated = platformService.update(platformId, updatedPlatform);
         if (updated.isPresent()) {
             return ResponseEntity.ok(updatedPlatform);
         }

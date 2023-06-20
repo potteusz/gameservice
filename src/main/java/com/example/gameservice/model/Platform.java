@@ -1,5 +1,6 @@
 package com.example.gameservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,6 +11,7 @@ public class Platform {
     private Integer platformId;
     private String platformName;
     @OneToOne(mappedBy = "platform")
+    @JsonIgnore
     private Company company;
     private int generation;
     private String bestseller;
