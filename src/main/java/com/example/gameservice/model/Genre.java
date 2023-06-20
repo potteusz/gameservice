@@ -2,6 +2,8 @@ package com.example.gameservice.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table
 public class Genre {
@@ -11,7 +13,7 @@ public class Genre {
     private String genreName;
     private String firstGameInGenre;
     private String creator;
-//    private Game gameGenre;
+    private List<Game> gameList;
 
 
     public Genre() {
@@ -48,8 +50,6 @@ public class Genre {
     public void setCreator(String creator) {
         this.creator = creator;
     }
-
-
 
 
 }

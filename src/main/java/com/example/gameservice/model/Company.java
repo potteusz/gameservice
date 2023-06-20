@@ -58,4 +58,5 @@ public class Company {
     public void setPlatform(Platform platform) {
         this.platform = platform;
     }
+
 }

@@ -10,7 +10,7 @@ public class Game {
     private Integer gameId;
     private String title;
     private String developer;
-//    private Genre genre;
+    private Genre genre;
 //    private Platform platform;
 
 
@@ -40,12 +40,6 @@ public class Game {
     public void setDeveloper(String developer) {
         this.developer = developer;
     }
-
-
-
-
-
-
 
 
 }

@@ -57,4 +57,8 @@ public class CompanyService {
         return Optional.empty();
     }
 
+    public List<Company> findCompanyByName(String name) {
+        return companyRepository.findAllByCompanyNameContaining(name);
+    }
+
 }
