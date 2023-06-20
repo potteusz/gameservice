@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
 @RestController
 @RequestMapping("/games")
 public class GameController {
@@ -21,7 +22,7 @@ public class GameController {
     @PostMapping
     public ResponseEntity<Game> postGame(@RequestBody Game requestGame) {
         Optional<Game> savedGame = gameService.addNewGame(requestGame);
-        if(savedGame.isEmpty()) {
+        if (savedGame.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(savedGame.get());
@@ -42,7 +43,7 @@ public class GameController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGameById(@PathVariable int id) {
-        if(gameService.getGameById(id).isEmpty()) {
+        if (gameService.getGameById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
             gameService.removeGameById(id);
@@ -55,7 +56,8 @@ public class GameController {
         Optional<Game> updated = gameService.update(id, updatedGame);
         if (updated.isPresent()) {
             return ResponseEntity.ok(updatedGame);
-        } else return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
 

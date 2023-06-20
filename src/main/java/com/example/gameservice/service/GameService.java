@@ -15,11 +15,14 @@ public class GameService {
     public GameService(GameRepository repository) {
         this.gameRepository = repository;
     }
+
     public Optional<Game> addNewGame(Game newGame) {
-        if(newGame.getGameId() != null && gameRepository.existsById(newGame.getGameId())) {
+        if (newGame.getGameId() != null && gameRepository.existsById(newGame.getGameId())) {
             return Optional.empty();
-        } return Optional.of(gameRepository.save(newGame));
+        }
+        return Optional.of(gameRepository.save(newGame));
     }
+
     public List<Game> getAllGames() {
         return gameRepository.findAll();
     }
@@ -36,7 +39,8 @@ public class GameService {
         if (gameRepository.existsById(id)) {
             updatedGame.setGameId(id);
             return Optional.of(gameRepository.save(updatedGame));
-        } return Optional.empty();
+        }
+        return Optional.empty();
     }
 
 }

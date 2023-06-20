@@ -22,7 +22,7 @@ public class GenreController {
     @PostMapping
     public ResponseEntity<Genre> postGenre(@RequestBody Genre requestGenre) {
         Optional<Genre> savedGenre = genreService.addNewGenre(requestGenre);
-        if(savedGenre.isEmpty()) {
+        if (savedGenre.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(savedGenre.get());
@@ -43,7 +43,7 @@ public class GenreController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGenreById(@PathVariable int id) {
-        if(genreService.getGenreById(id).isEmpty()) {
+        if (genreService.getGenreById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
             genreService.removeGenreById(id);
@@ -56,6 +56,7 @@ public class GenreController {
         Optional<Genre> updated = genreService.update(id, updatedGenre);
         if (updated.isPresent()) {
             return ResponseEntity.ok(updatedGenre);
-        } else return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

@@ -22,7 +22,7 @@ public class PlatformController {
     @PostMapping
     public ResponseEntity<Platform> postPlatform(@RequestBody Platform requestPlatform) {
         Optional<Platform> savedPlatform = platformService.addNewPlatform(requestPlatform);
-        if(savedPlatform.isEmpty()) {
+        if (savedPlatform.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPlatform.get());
@@ -43,7 +43,7 @@ public class PlatformController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlatformById(@PathVariable int id) {
-        if(platformService.getPlatformById(id).isEmpty()) {
+        if (platformService.getPlatformById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
             platformService.removePlatformById(id);
@@ -56,6 +56,7 @@ public class PlatformController {
         Optional<Platform> updated = platformService.update(id, updatedPlatform);
         if (updated.isPresent()) {
             return ResponseEntity.ok(updatedPlatform);
-        } else return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

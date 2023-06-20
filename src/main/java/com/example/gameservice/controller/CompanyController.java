@@ -22,7 +22,7 @@ public class CompanyController {
     @PostMapping
     public ResponseEntity<Company> postCompany(@RequestBody Company requestCompany) {
         Optional<Company> savedCompany = companyService.addNewCompany(requestCompany);
-        if(savedCompany.isEmpty()) {
+        if (savedCompany.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCompany.get());
@@ -43,7 +43,7 @@ public class CompanyController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCompanyById(@PathVariable int id) {
-        if(companyService.getCompanyById(id).isEmpty()) {
+        if (companyService.getCompanyById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
             companyService.removeCompanyById(id);
@@ -56,6 +56,15 @@ public class CompanyController {
         Optional<Company> updated = companyService.update(id, updatedCompany);
         if (updated.isPresent()) {
             return ResponseEntity.ok(updatedCompany);
-        } else return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+    @PatchMapping("/setPlatform/{companyId}/{platformId}")
+    public ResponseEntity<String> setPlatformForCompany(@PathVariable Integer companyId, @PathVariable Integer platformId) {
+        Optional<Company> company = companyService.setPlatformForCompany(companyId, platformId);
+        if (company.isPresent()) {
+            return ResponseEntity.ok("Platform was set successfully");
+        }
+        return ResponseEntity.notFound().build();
     }
 }

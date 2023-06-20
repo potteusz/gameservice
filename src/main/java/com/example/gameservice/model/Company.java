@@ -1,6 +1,7 @@
 package com.example.gameservice.model;
 
 import jakarta.persistence.*;
+
 @Entity
 @Table
 public class Company {

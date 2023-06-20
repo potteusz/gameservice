@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class GenreService {
 
@@ -17,10 +18,12 @@ public class GenreService {
     }
 
     public Optional<Genre> addNewGenre(Genre newGenre) {
-        if(newGenre.getGenreId() != null && genreRepository.existsById(newGenre.getGenreId())) {
+        if (newGenre.getGenreId() != null && genreRepository.existsById(newGenre.getGenreId())) {
             return Optional.empty();
-        } return Optional.of(genreRepository.save(newGenre));
+        }
+        return Optional.of(genreRepository.save(newGenre));
     }
+
     public List<Genre> getAllGenres() {
         return genreRepository.findAll();
     }
@@ -37,6 +40,7 @@ public class GenreService {
         if (genreRepository.existsById(id)) {
             updatedGenre.setGenreId(id);
             return Optional.of(genreRepository.save(updatedGenre));
-        } return Optional.empty();
+        }
+        return Optional.empty();
     }
 }
