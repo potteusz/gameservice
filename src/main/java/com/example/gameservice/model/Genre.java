@@ -1,8 +1,11 @@
 package com.example.gameservice.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
+
+import static org.hibernate.annotations.CascadeType.*;
 
 @Entity
 @Table
@@ -13,6 +16,9 @@ public class Genre {
     private String genreName;
     private String firstGameInGenre;
     private String creator;
+
+    @OneToMany(mappedBy = "genre")
+    @Cascade({DETACH, PERSIST, MERGE, REFRESH})
     private List<Game> gameList;
 
 
@@ -51,5 +57,12 @@ public class Genre {
         this.creator = creator;
     }
 
+    public List<Game> getGameList() {
+        return gameList;
+    }
+
+    public void setGameList(List<Game> gameList) {
+        this.gameList = gameList;
+    }
 
 }
