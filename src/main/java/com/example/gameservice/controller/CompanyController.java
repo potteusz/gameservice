@@ -33,27 +33,27 @@ public class CompanyController {
         return companyService.getAllCompanies();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Company> getCompanyById(@PathVariable int id) {
-        Optional<Company> response = companyService.getCompanyById(id);
+    @GetMapping("/{companyId}")
+    public ResponseEntity<Company> getCompanyById(@PathVariable Integer companyId) {
+        Optional<Company> response = companyService.getCompanyById(companyId);
         return response
                 .map(companyResponse -> ResponseEntity.ok(companyResponse))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCompanyById(@PathVariable int id) {
-        if (companyService.getCompanyById(id).isEmpty()) {
+    @DeleteMapping("/{companyId}")
+    public ResponseEntity<Void> deleteCompanyById(@PathVariable Integer companyId) {
+        if (companyService.getCompanyById(companyId).isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
-            companyService.removeCompanyById(id);
+            companyService.removeCompanyById(companyId);
             return ResponseEntity.noContent().build();
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Company> updateCompany(@PathVariable Integer id, @RequestBody Company updatedCompany) {
-        Optional<Company> updated = companyService.update(id, updatedCompany);
+    @PutMapping("/{companyId}")
+    public ResponseEntity<Company> updateCompany(@PathVariable Integer companyId, @RequestBody Company updatedCompany) {
+        Optional<Company> updated = companyService.update(companyId, updatedCompany);
         if (updated.isPresent()) {
             return ResponseEntity.ok(updatedCompany);
         }

@@ -31,17 +31,17 @@ public class CompanyService {
         return companyRepository.findAll();
     }
 
-    public Optional<Company> getCompanyById(int id) {
-        return companyRepository.findById(id);
+    public Optional<Company> getCompanyById(Integer companyId) {
+        return companyRepository.findById(companyId);
     }
 
-    public void removeCompanyById(int id) {
-        companyRepository.deleteById(id);
+    public void removeCompanyById(Integer companyId) {
+        companyRepository.deleteById(companyId);
     }
 
-    public Optional<Company> update(Integer id, Company updatedCompany) {
-        if (companyRepository.existsById(id)) {
-            updatedCompany.setCompanyId(id);
+    public Optional<Company> update(Integer companyId, Company updatedCompany) {
+        if (companyRepository.existsById(companyId)) {
+            updatedCompany.setCompanyId(companyId);
             return Optional.of(companyRepository.save(updatedCompany));
         }
         return Optional.empty();

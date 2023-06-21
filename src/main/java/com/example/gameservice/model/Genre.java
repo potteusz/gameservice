@@ -1,5 +1,6 @@
 package com.example.gameservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
 
@@ -19,6 +20,7 @@ public class Genre {
 
     @OneToMany(mappedBy = "genre")
     @Cascade({DETACH, PERSIST, MERGE, REFRESH})
+    @JsonIgnore
     private List<Game> gameList;
 
 

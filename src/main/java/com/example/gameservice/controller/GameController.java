@@ -34,28 +34,36 @@ public class GameController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Game> getGameById(@PathVariable int id) {
-        Optional<Game> response = gameService.getGameById(id);
+    public ResponseEntity<Game> getGameById(@PathVariable Integer gameId) {
+        Optional<Game> response = gameService.getGameById(gameId);
         return response
                 .map(gameResponse -> ResponseEntity.ok(gameResponse))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGameById(@PathVariable int id) {
-        if (gameService.getGameById(id).isEmpty()) {
+    public ResponseEntity<Void> deleteGameById(@PathVariable Integer gameId) {
+        if (gameService.getGameById(gameId).isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
-            gameService.removeGameById(id);
+            gameService.removeGameById(gameId);
             return ResponseEntity.noContent().build();
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Game> updateGame(@PathVariable Integer id, @RequestBody Game updatedGame) {
-        Optional<Game> updated = gameService.update(id, updatedGame);
+    public ResponseEntity<Game> updateGame(@PathVariable Integer gameId, @RequestBody Game updatedGame) {
+        Optional<Game> updated = gameService.update(gameId, updatedGame);
         if (updated.isPresent()) {
             return ResponseEntity.ok(updatedGame);
+        }
+        return ResponseEntity.notFound().build();
+    }
+    @PatchMapping("/{gameId}/setGenre/{genreId}")
+    public ResponseEntity<String> setGenreForGame(@PathVariable Integer genreId, @PathVariable Integer gameId) {
+        Optional<Game> optionalGame = gameService.setGenreForGame(genreId, gameId);
+        if (optionalGame.isPresent()) {
+            return ResponseEntity.ok("Genre set for game");
         }
         return ResponseEntity.notFound().build();
     }

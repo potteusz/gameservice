@@ -33,27 +33,27 @@ public class GenreController {
         return genreService.getAllGenres();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Genre> getGenreById(@PathVariable int id) {
-        Optional<Genre> response = genreService.getGenreById(id);
+    @GetMapping("/{genreId}")
+    public ResponseEntity<Genre> getGenreById(@PathVariable Integer genreId) {
+        Optional<Genre> response = genreService.getGenreById(genreId);
         return response
                 .map(genreResponse -> ResponseEntity.ok(genreResponse))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGenreById(@PathVariable int id) {
-        if (genreService.getGenreById(id).isEmpty()) {
+    @DeleteMapping("/{genreId}")
+    public ResponseEntity<Void> deleteGenreById(@PathVariable Integer genreId) {
+        if (genreService.getGenreById(genreId).isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
-            genreService.removeGenreById(id);
+            genreService.removeGenreById(genreId);
             return ResponseEntity.noContent().build();
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Genre> updateGenre(@PathVariable Integer id, @RequestBody Genre updatedGenre) {
-        Optional<Genre> updated = genreService.update(id, updatedGenre);
+    @PutMapping("/{genreId}")
+    public ResponseEntity<Genre> updateGenre(@PathVariable Integer genreId, @RequestBody Genre updatedGenre) {
+        Optional<Genre> updated = genreService.update(genreId, updatedGenre);
         if (updated.isPresent()) {
             return ResponseEntity.ok(updatedGenre);
         }

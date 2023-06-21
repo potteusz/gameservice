@@ -28,12 +28,12 @@ public class GenreService {
         return genreRepository.findAll();
     }
 
-    public Optional<Genre> getGenreById(int id) {
-        return genreRepository.findById(id);
+    public Optional<Genre> getGenreById(Integer genreId) {
+        return genreRepository.findById(genreId);
     }
 
-    public void removeGenreById(int id) {
-        genreRepository.deleteById(id);
+    public void removeGenreById(Integer genreId) {
+        genreRepository.deleteById(genreId);
     }
 
     public Optional<Genre> update(Integer id, Genre updatedGenre) {
