@@ -1,7 +1,10 @@
 package com.example.gameservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
+
+import java.util.List;
 
 import static org.hibernate.annotations.CascadeType.*;
 
@@ -18,7 +21,11 @@ public class Game {
     @JoinColumn(name = "genreId")
     @Cascade({DETACH, MERGE, PERSIST, REFRESH})
     private Genre genre;
-//    private Platform platform;
+    @ManyToMany
+    @JoinTable(name = "platform_game", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "platform_id"))
+    @Cascade({PERSIST, MERGE, REFRESH, DETACH})
+    @JsonIgnore
+    private List<Platform> platforms;
 
 
     public Game() {
@@ -54,5 +61,13 @@ public class Game {
 
     public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+
+    public List<Platform> getPlatforms() {
+        return platforms;
+    }
+
+    public void setPlatforms(List<Platform> platforms) {
+        this.platforms = platforms;
     }
 }

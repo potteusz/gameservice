@@ -1,8 +1,10 @@
 package com.example.gameservice.service;
 
 import com.example.gameservice.model.Company;
+import com.example.gameservice.model.Game;
 import com.example.gameservice.model.Platform;
 import com.example.gameservice.repository.CompanyRepository;
+import com.example.gameservice.repository.GameRepository;
 import com.example.gameservice.repository.PlatformRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ public class PlatformService {
 
     private PlatformRepository platformRepository;
     private CompanyRepository companyRepository;
+    private GameRepository gameRepository;
 
-    public PlatformService(PlatformRepository platformRepository, CompanyRepository companyRepository) {
+    public PlatformService(PlatformRepository platformRepository, CompanyRepository companyRepository, GameRepository gameRepository) {
         this.platformRepository = platformRepository;
         this.companyRepository = companyRepository;
+        this.gameRepository = gameRepository;
     }
 
     public Optional<Platform> addNewPlatform(Platform newPlatform) {
@@ -51,6 +55,16 @@ public class PlatformService {
         if (platformRepository.existsById(platformId)) {
             updatedPlatform.setPlatformId(platformId);
             return Optional.of(platformRepository.save(updatedPlatform));
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Platform> setGameForPlatform(Integer gameId, Integer platformId) {
+        if (gameRepository.existsById(gameId) && platformRepository.existsById(platformId)) {
+            Game game = gameRepository.findById(gameId).get();
+            Platform platform = platformRepository.findById(platformId).get();
+            platform.addGame(game);
+            return Optional.of(platformRepository.save(platform));
         }
         return Optional.empty();
     }

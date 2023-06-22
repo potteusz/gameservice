@@ -67,6 +67,7 @@ public class CompanyController {
         }
         return ResponseEntity.notFound().build();
     }
+
     @GetMapping("/find/{name}")
     public List<Company> findCompanyByName(@PathVariable String name) {
         return companyService.findCompanyByName(name);

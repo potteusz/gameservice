@@ -33,7 +33,7 @@ public class GameController {
         return gameService.getAllGames();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{gameId}")
     public ResponseEntity<Game> getGameById(@PathVariable Integer gameId) {
         Optional<Game> response = gameService.getGameById(gameId);
         return response
@@ -41,7 +41,7 @@ public class GameController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{gameId}")
     public ResponseEntity<Void> deleteGameById(@PathVariable Integer gameId) {
         if (gameService.getGameById(gameId).isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -51,7 +51,7 @@ public class GameController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{gameId}")
     public ResponseEntity<Game> updateGame(@PathVariable Integer gameId, @RequestBody Game updatedGame) {
         Optional<Game> updated = gameService.update(gameId, updatedGame);
         if (updated.isPresent()) {
@@ -59,6 +59,7 @@ public class GameController {
         }
         return ResponseEntity.notFound().build();
     }
+
     @PatchMapping("/{gameId}/setGenre/{genreId}")
     public ResponseEntity<String> setGenreForGame(@PathVariable Integer genreId, @PathVariable Integer gameId) {
         Optional<Game> optionalGame = gameService.setGenreForGame(genreId, gameId);
