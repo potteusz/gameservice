@@ -1,6 +1,8 @@
 package com.example.gameservice.service;
 
+import com.example.gameservice.model.Game;
 import com.example.gameservice.model.Genre;
+import com.example.gameservice.repository.GameRepository;
 import com.example.gameservice.repository.GenreRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +13,12 @@ import java.util.Optional;
 public class GenreService {
 
     private GenreRepository genreRepository;
+    private GameRepository gameRepository;
 
 
-    public GenreService(GenreRepository genreRepository) {
+    public GenreService(GenreRepository genreRepository, GameRepository gameRepository) {
         this.genreRepository = genreRepository;
+        this.gameRepository = gameRepository;
     }
 
     public Optional<Genre> addNewGenre(Genre newGenre) {
@@ -33,7 +37,14 @@ public class GenreService {
     }
 
     public void removeGenreById(Integer genreId) {
-        genreRepository.deleteById(genreId);
+        Optional<Genre> optionalGenre = genreRepository.findById(genreId);
+        if (optionalGenre.isPresent()) {
+            for (Game games: optionalGenre.get().getGameList()) {
+               games.setGenre(null);
+               gameRepository.save(games);
+            }
+            genreRepository.deleteById(genreId);
+        }
     }
 
     public Optional<Genre> update(Integer id, Genre updatedGenre) {
