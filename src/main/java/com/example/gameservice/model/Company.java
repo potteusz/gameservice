@@ -19,6 +19,13 @@ public class Company {
     public Company() {
     }
 
+    public Company(String companyName, String headquarter, String ceo) {
+        this.companyName = companyName;
+        this.headquarter = headquarter;
+        this.ceo = ceo;
+    }
+
+
     public Integer getCompanyId() {
         return companyId;
     }

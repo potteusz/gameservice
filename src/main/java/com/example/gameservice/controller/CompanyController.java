@@ -59,6 +59,7 @@ public class CompanyController {
         }
         return ResponseEntity.notFound().build();
     }
+
     @PatchMapping("/{companyId}/setPlatform/{platformId}")
     public ResponseEntity<String> setPlatformForCompany(@PathVariable Integer companyId, @PathVariable Integer platformId) {
         Optional<Company> company = companyService.setPlatformForCompany(companyId, platformId);
@@ -72,4 +73,5 @@ public class CompanyController {
     public List<Company> findCompanyByName(@PathVariable String name) {
         return companyService.findCompanyByName(name);
     }
+
 }
