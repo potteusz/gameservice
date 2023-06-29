@@ -7,6 +7,7 @@ import com.example.gameservice.repository.CompanyRepository;
 import com.example.gameservice.repository.PlatformRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -36,6 +37,7 @@ class CompanyServiceTest {
     }
 
     @Test
+    @DisplayName("blabla")
     void shouldAddNewCompany() {
         Company company = new Company("Microsoft", "Redmond", "Bill Gates");
         when(companyRepository.save(company)).thenReturn(company);
@@ -158,7 +160,7 @@ class CompanyServiceTest {
     }
 
     @Test
-    void findCompanyByName() {
+    void shouldFindCompanyByName() {
         String name = "so";
         List<Company> companyList = new ArrayList<>();
         companyList.add(new Company("Microsoft", "Redmond", "Bill Gates"));
