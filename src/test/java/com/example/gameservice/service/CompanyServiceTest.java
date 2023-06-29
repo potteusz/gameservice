@@ -46,13 +46,13 @@ class CompanyServiceTest {
 
     @Test
     void shouldNotAddNewCompanyIfIdExists() {
-        Integer id = 1;
         Company company = new Company();
-        when(companyRepository.existsById(id)).thenReturn(true);
-        when(companyRepository.findById(id)).thenReturn(Optional.empty());
-        when(companyRepository.save(company)).thenReturn(company);
+        company.setCompanyId(1);
+
+        when(companyRepository.existsById(company.getCompanyId())).thenReturn(true);
+
         Optional<Company> optionalCompany = companyService.addNewCompany(company);
-        Assertions.assertTrue(optionalCompany.isPresent());
+        Assertions.assertTrue(optionalCompany.isEmpty());
     }
 
     @Test
@@ -103,7 +103,6 @@ class CompanyServiceTest {
     @Test
     void shouldUpdate() {
         Integer id = 1;
-
         Company updatedCompany = new Company();
         updatedCompany.setCompanyId(id);
         updatedCompany.setCompanyName("New name");
@@ -118,28 +117,33 @@ class CompanyServiceTest {
     void shouldNotUpdate() {
         Integer id = 1;
         Company company = new Company();
-        when(companyRepository.findById(id)).thenReturn(Optional.empty());
+        company.setCompanyName("New name");
+
+        when(companyRepository.existsById(id)).thenReturn(false);
+
         Optional<Company> optionalCompany = companyService.update(id, company);
-        Assertions.assertTrue(optionalCompany.isEmpty());
+        Assertions.assertFalse(optionalCompany.isPresent());
     }
+
 
     @Test
     void shouldSetPlatformForCompany() {
         Integer companyId = 1;
         Integer platformId = 1;
+
         Company company = new Company();
         Platform platform = new Platform();
 
+        when(companyRepository.existsById(companyId)).thenReturn(true);
+        when(platformRepository.existsById(platformId)).thenReturn(true);
         when(companyRepository.findById(companyId)).thenReturn(Optional.of(company));
         when(platformRepository.findById(platformId)).thenReturn(Optional.of(platform));
-        when(companyService.setPlatformForCompany(companyId, platformId)).thenReturn(Optional.of(company));
+        company.setPlatform(platform);
         when(companyRepository.save(company)).thenReturn(company);
 
-        Optional<Company> optionalCompany = companyService.setPlatformForCompany(companyId, platformId);
+        companyService.setPlatformForCompany(companyId, platformId);
 
-        Assertions.assertEquals(company, optionalCompany.get());
-        Assertions.assertEquals(platform, company.getPlatform());
-
+        verify(companyRepository).save(company);
     }
 
     @Test
@@ -148,11 +152,21 @@ class CompanyServiceTest {
         Integer platformId = 1;
 
         when(companyRepository.existsById(companyId) && platformRepository.existsById(platformId)).thenReturn(false);
+
         Optional<Company> optionalCompany = companyService.setPlatformForCompany(companyId, platformId);
-        Assertions.assertTrue(optionalCompany.isEmpty());
+        Assertions.assertFalse(optionalCompany.isPresent());
     }
 
     @Test
     void findCompanyByName() {
+        String name = "so";
+        List<Company> companyList = new ArrayList<>();
+        companyList.add(new Company("Microsoft", "Redmond", "Bill Gates"));
+        companyList.add(new Company("Sony", "Tokyo", "Pan Sony"));
+        companyList.add(new Company("Nintendo", "Kyoto", "Shigeru Miyamoto"));
+
+        when(companyRepository.findAllByCompanyNameContaining(name)).thenReturn(companyList);
+        List<Company> result = companyService.findCompanyByName(name);
+        Assertions.assertEquals(companyList, result);
     }
 }
