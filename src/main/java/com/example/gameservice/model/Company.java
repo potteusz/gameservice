@@ -25,6 +25,13 @@ public class Company {
         this.ceo = ceo;
     }
 
+    public Company(Integer companyId, String companyName, Platform platform, String headquarter, String ceo) {
+        this.companyId = companyId;
+        this.companyName = companyName;
+        this.platform = platform;
+        this.headquarter = headquarter;
+        this.ceo = ceo;
+    }
 
     public Integer getCompanyId() {
         return companyId;
