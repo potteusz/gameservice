@@ -60,7 +60,7 @@ public class PlatformController {
         return ResponseEntity.notFound().build();
     }
 
-    @PatchMapping("/{gameId}/setGame/{platformId}")
+    @PatchMapping("/{platformId}/setGame/{gameId}")
     public ResponseEntity<String> setGameForPlatform(@PathVariable Integer gameId, @PathVariable Integer platformId) {
         Optional<Platform> optionalPlatform = platformService.setGameForPlatform(gameId, platformId);
         if (optionalPlatform.isPresent()) {
